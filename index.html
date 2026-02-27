@@ -3,100 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liga MVP - Torneo Relámpago</title>
+    <title>Liga MVP</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0B0F19', /* Fondo súper oscuro, casi azul marino */
+                        cardbg: '#111827', /* Gris oscuro para las tarjetas */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Efecto de texto con gradiente para el título */
+        .text-gradient {
+            background: linear-gradient(to right, #22d3ee, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans antialiased">
+<body class="bg-darkbg text-slate-200 font-sans min-h-screen antialiased">
 
-    <nav class="bg-slate-800 p-4 shadow-lg border-b border-slate-700">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-black text-indigo-400 tracking-wider">LIGA MVP</h1>
-            <span class="bg-emerald-500/20 text-emerald-400 text-xs px-3 py-1 rounded-full uppercase font-bold tracking-wide border border-emerald-500/50">
-                🔴 En Vivo
-            </span>
+    <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-cyan-900/20 to-transparent pointer-events-none z-0"></div>
+
+    <header class="relative z-10 pt-12 pb-8 flex flex-col items-center justify-center">
+        <div class="w-28 h-28 mb-4 relative">
+            <div class="absolute inset-0 bg-cyan-500 blur-[20px] opacity-20 rounded-full"></div>
+            <img src="logo.png" alt="Logo Liga MVP" class="w-full h-full object-contain relative z-10 drop-shadow-2xl">
         </div>
+        <h1 class="text-5xl md:text-6xl font-black text-gradient uppercase tracking-widest drop-shadow-sm">
+            Liga MVP
+        </h1>
+    </header>
+
+    <nav class="relative z-10 max-w-6xl mx-auto px-4 mb-12">
+        <ul class="flex overflow-x-auto hide-scrollbar justify-start md:justify-center gap-2 md:gap-6 border-b border-slate-800 pb-px">
+            <li>
+                <button class="px-5 py-3 text-cyan-400 border-b-2 border-cyan-400 font-bold tracking-wider uppercase text-sm md:text-base whitespace-nowrap shadow-[0_4px_15px_-3px_rgba(34,211,238,0.3)]">
+                    Superliga
+                </button>
+            </li>
+            <li>
+                <button class="px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-sm md:text-base whitespace-nowrap">
+                    Primera División
+                </button>
+            </li>
+            <li>
+                <button class="px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-sm md:text-base whitespace-nowrap">
+                    Segunda División
+                </button>
+            </li>
+            <li>
+                <button class="px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-sm md:text-base whitespace-nowrap">
+                    Tercera División
+                </button>
+            </li>
+            <li>
+                <button class="px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-sm md:text-base whitespace-nowrap">
+                    Cuarta División
+                </button>
+            </li>
+        </ul>
     </nav>
 
-    <main class="max-w-5xl mx-auto p-4 mt-8">
+    <main class="relative z-10 max-w-6xl mx-auto px-4 pb-16">
         
-        <section class="mb-12 text-center">
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-3 text-white">Torneo Relámpago T1</h2>
-            <p class="text-slate-400 font-medium text-lg">Mobile Legends: Bang Bang • Fase de Grupos</p>
-        </section>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <section class="lg:col-span-7 bg-cardbg/80 backdrop-blur-sm p-6 md:p-8 rounded-3xl shadow-2xl border border-slate-800 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-[50px]"></div>
 
-            <section class="bg-slate-800 p-6 rounded-2xl shadow-xl border border-slate-700/50">
-                <h3 class="text-xl font-bold mb-6 text-white flex items-center gap-2">
-                    🏆 Tabla de Posiciones
+                <h3 class="text-2xl font-black mb-6 text-white uppercase tracking-wide flex items-center gap-3">
+                    <span class="text-cyan-400">///</span> Tabla de Posiciones
                 </h3>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="text-slate-400 text-sm border-b border-slate-700">
-                                <th class="pb-3 font-semibold">Equipo</th>
-                                <th class="pb-3 text-center font-semibold">G</th>
-                                <th class="pb-3 text-center font-semibold">P</th>
-                                <th class="pb-3 text-right font-semibold text-indigo-300">Pts</th>
+                            <tr class="text-slate-500 text-xs uppercase tracking-widest border-b border-slate-800">
+                                <th class="pb-4 font-bold">Equipo</th>
+                                <th class="pb-4 text-center font-bold">V</th>
+                                <th class="pb-4 text-center font-bold">D</th>
+                                <th class="pb-4 text-right font-bold text-cyan-400">Pts</th>
                             </tr>
                         </thead>
                         <tbody class="text-sm">
-                            <tr class="border-b border-slate-700/50 hover:bg-slate-700/30 transition-colors">
-                                <td class="py-4 font-bold text-white flex items-center gap-3">
-                                    <div class="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-xs">RL</div>
+                            <tr class="border-b border-slate-800/50 hover:bg-slate-800/50 transition-colors group">
+                                <td class="py-5 font-bold text-white flex items-center gap-4">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center text-xs shadow-lg shadow-cyan-500/30">RL</div>
                                     Reyes Latín
                                 </td>
-                                <td class="py-4 text-center text-slate-300">3</td>
-                                <td class="py-4 text-center text-slate-300">0</td>
-                                <td class="py-4 text-right font-black text-indigo-400 text-base">9</td>
+                                <td class="py-5 text-center text-slate-300">5</td>
+                                <td class="py-5 text-center text-slate-300">0</td>
+                                <td class="py-5 text-right font-black text-cyan-400 text-lg">15</td>
                             </tr>
-                            <tr class="border-b border-slate-700/50 hover:bg-slate-700/30 transition-colors">
-                                <td class="py-4 font-bold text-slate-200 flex items-center gap-3">
-                                    <div class="w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center text-xs">TN</div>
-                                    Los Titanes
+                            <tr class="border-b border-slate-800/50 hover:bg-slate-800/50 transition-colors">
+                                <td class="py-5 font-bold text-slate-200 flex items-center gap-4">
+                                    <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-xs border border-slate-700">NG</div>
+                                    Neon Gaming
                                 </td>
-                                <td class="py-4 text-center text-slate-300">2</td>
-                                <td class="py-4 text-center text-slate-300">1</td>
-                                <td class="py-4 text-right font-bold text-indigo-300 text-base">6</td>
+                                <td class="py-5 text-center text-slate-300">3</td>
+                                <td class="py-5 text-center text-slate-300">2</td>
+                                <td class="py-5 text-right font-bold text-slate-100 text-lg">9</td>
                             </tr>
-                            <tr class="hover:bg-slate-700/30 transition-colors">
-                                <td class="py-4 font-bold text-slate-200 flex items-center gap-3">
-                                    <div class="w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center text-xs">EX</div>
-                                    Escuadrón X
+                            <tr class="hover:bg-slate-800/50 transition-colors">
+                                <td class="py-5 font-bold text-slate-200 flex items-center gap-4">
+                                    <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-xs border border-slate-700">VX</div>
+                                    Vortex
                                 </td>
-                                <td class="py-4 text-center text-slate-300">0</td>
-                                <td class="py-4 text-center text-slate-300">3</td>
-                                <td class="py-4 text-right font-bold text-indigo-300 text-base">0</td>
+                                <td class="py-5 text-center text-slate-300">1</td>
+                                <td class="py-5 text-center text-slate-300">4</td>
+                                <td class="py-5 text-right font-bold text-slate-100 text-lg">3</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <section class="bg-slate-800 p-6 rounded-2xl shadow-xl border border-slate-700/50">
-                <h3 class="text-xl font-bold mb-6 text-white flex items-center gap-2">
-                    ⚔️ Próximos Enfrentamientos
+            <section class="lg:col-span-5 bg-cardbg/80 backdrop-blur-sm p-6 md:p-8 rounded-3xl shadow-2xl border border-slate-800 relative overflow-hidden">
+                <div class="absolute bottom-0 left-0 w-32 h-32 bg-pink-500/10 blur-[50px]"></div>
+
+                <h3 class="text-2xl font-black mb-6 text-white uppercase tracking-wide flex items-center gap-3">
+                    <span class="text-pink-500">///</span> Próxima Fecha
                 </h3>
-                <div class="space-y-4">
-                    
-                    <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700 flex justify-between items-center hover:border-indigo-500/50 transition-colors cursor-default">
-                        <span class="font-bold text-white w-1/3 text-right">Reyes Latín</span>
-                        <div class="flex flex-col items-center w-1/3">
-                            <span class="text-xs text-slate-400 font-mono bg-slate-800 px-2 py-1 rounded border border-slate-700 mb-1">20:00 HS</span>
-                            <span class="text-xs text-indigo-400 font-bold">HOY</span>
+                
+                <div class="space-y-5">
+                    <div class="bg-darkbg p-5 rounded-2xl border border-slate-800 flex flex-col gap-3 hover:border-pink-500/50 transition-all group cursor-default">
+                        <div class="flex justify-between items-center text-xs text-slate-500 font-bold uppercase tracking-wider">
+                            <span>Jornada 6</span>
+                            <span class="text-pink-400 bg-pink-500/10 px-2 py-1 rounded">Hoy 20:00</span>
                         </div>
-                        <span class="font-bold text-slate-300 w-1/3 text-left">Los Titanes</span>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-white text-lg">Reyes Latín</span>
+                            <span class="text-slate-600 font-black italic">VS</span>
+                            <span class="font-bold text-slate-400 text-lg">Vortex</span>
+                        </div>
                     </div>
 
-                    <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700 flex justify-between items-center hover:border-indigo-500/50 transition-colors cursor-default">
-                        <span class="font-bold text-slate-300 w-1/3 text-right">Escuadrón X</span>
-                        <div class="flex flex-col items-center w-1/3">
-                            <span class="text-xs text-slate-400 font-mono bg-slate-800 px-2 py-1 rounded border border-slate-700 mb-1">21:30 HS</span>
-                            <span class="text-xs text-slate-500 font-bold">MAÑANA</span>
+                    <div class="bg-darkbg p-5 rounded-2xl border border-slate-800 flex flex-col gap-3 hover:border-pink-500/50 transition-all cursor-default">
+                        <div class="flex justify-between items-center text-xs text-slate-500 font-bold uppercase tracking-wider">
+                            <span>Jornada 6</span>
+                            <span>Mañana 22:30</span>
                         </div>
-                        <span class="font-bold text-slate-300 w-1/3 text-left">Team Zeta</span>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-slate-400 text-lg">Neon Gaming</span>
+                            <span class="text-slate-600 font-black italic">VS</span>
+                            <span class="font-bold text-slate-400 text-lg">Team Alpha</span>
+                        </div>
                     </div>
-
                 </div>
             </section>
 
