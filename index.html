@@ -118,10 +118,24 @@
             </div>
 
             <div id="tab-fixture" class="tab-content relative z-10">
-                <div class="flex flex-col items-center justify-center py-16 text-slate-500">
-                    <svg class="w-16 h-16 mb-4 opacity-50 text-brandpink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    <p class="font-bold tracking-widest uppercase text-sm">Próximamente</p>
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4 bg-darkbg/50 p-4 rounded-xl border border-white/5">
+                    <span class="text-brandpink font-bold uppercase tracking-widest text-sm" id="titulo-fecha">Fecha 1</span>
+                    
+                    <select id="selector-fecha" onchange="cargarFixture(this.value)" class="bg-cardbg border border-white/10 text-white text-sm rounded-lg focus:ring-brandcyan focus:border-brandcyan block px-4 py-2 outline-none cursor-pointer">
+                        <option value="1">Fecha 1</option>
+                        <option value="2">Fecha 2</option>
+                        <option value="3">Fecha 3</option>
+                        <option value="4">Fecha 4</option>
+                        <option value="5">Fecha 5</option>
+                        <option value="6">Fecha 6</option>
+                        <option value="7">Fecha 7</option>
+                        <option value="8">Fecha 8</option>
+                        <option value="9">Fecha 9</option>
+                    </select>
                 </div>
+
+                <div class="space-y-3" id="contenedor-partidos">
+                    </div>
             </div>
 
         </div>
@@ -145,7 +159,7 @@
             activeBtn.classList.add('bg-panelbg', 'text-white', 'shadow-lg', 'border', 'border-white/5');
         }
 
-        // --- NUEVA LÓGICA: Cambiar de División ---
+        // --- LÓGICA: Cambiar de División ---
         function cambiarDivision(nuevaDivision, botonClickeado) {
             // 1. Evitar recargar si ya estamos en esa división
             if(divisionActual === nuevaDivision) return;
@@ -160,9 +174,11 @@
             // 3. Encender el botón que fue clickeado (Estilo Activo)
             botonClickeado.className = 'btn-division px-5 py-2.5 bg-brandcyan text-black rounded-xl font-bold tracking-wider uppercase text-xs md:text-sm shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all';
 
-            // 4. Volver a llamar a la base de datos para que traiga los equipos de esa liga
+            // 4. Volver a llamar a la base de datos para que traiga los equipos y fixture de esa liga
+            document.getElementById('selector-fecha').value = "1";
             cargarPosiciones();
             cargarEquipos();
+            cargarFixture(1);
         }
 
         // --- INICIALIZACIÓN DE APPWRITE ---
@@ -188,7 +204,7 @@
                     DATABASE_ID,
                     POSICIONES_COLLECTION_ID,
                     [
-                        Query.equal('division', divisionActual), // <-- EL FILTRO MÁGICO
+                        Query.equal('division', divisionActual), 
                         Query.orderDesc('puntos')
                     ]
                 );
@@ -237,7 +253,7 @@
                     DATABASE_ID,
                     EQUIPOS_COLLECTION_ID,
                     [
-                        Query.equal('division', divisionActual) // <-- EL FILTRO MÁGICO
+                        Query.equal('division', divisionActual) 
                     ]
                 );
 
@@ -267,9 +283,73 @@
             }
         }
 
+        // --- NUEVA FUNCIÓN: Cargar Fixture ---
+        async function cargarFixture(fecha) {
+            const contenedor = document.getElementById('contenedor-partidos');
+            document.getElementById('titulo-fecha').innerText = `Fecha ${fecha}`;
+            
+            contenedor.innerHTML = `<div class="py-8 text-center text-slate-500"><svg class="animate-spin h-6 w-6 text-brandcyan mx-auto mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Cargando enfrentamientos...</div>`;
+
+            try {
+                // PARTIDOS_COLLECTION_ID es '69a236290007c639316f'
+                const response = await databases.listDocuments(
+                    DATABASE_ID,
+                    '69a236290007c639316f', 
+                    [
+                        Query.equal('division', divisionActual),
+                        Query.equal('fecha_numero', parseInt(fecha))
+                    ]
+                );
+
+                contenedor.innerHTML = '';
+                if(response.documents.length === 0) {
+                    contenedor.innerHTML = `<div class="py-8 text-center text-slate-500 text-sm tracking-widest uppercase">Aún no hay partidos programados para la Fecha ${fecha} en ${divisionActual}</div>`;
+                    return;
+                }
+
+                response.documents.forEach(partido => {
+                    let logoA = 'https://via.placeholder.com/150/0D1424/FFFFFF?text=A';
+                    let logoB = 'https://via.placeholder.com/150/0D1424/FFFFFF?text=B';
+                    
+                    if (partido.equipo_a_logo) logoA = storage.getFilePreview(BUCKET_ID, partido.equipo_a_logo).href;
+                    if (partido.equipo_b_logo) logoB = storage.getFilePreview(BUCKET_ID, partido.equipo_b_logo).href;
+
+                    const tarjeta = `
+                        <div class="flex justify-center items-center gap-2 md:gap-6 glass-panel p-3 md:p-4 rounded-xl hover:bg-white/5 transition-colors border-l-4 border-l-transparent hover:border-l-brandcyan">
+                            <div class="w-[40%] flex justify-end items-center gap-3">
+                                <span class="font-bold text-white text-[10px] md:text-sm text-right line-clamp-1">${partido.equipo_a_nombre}</span>
+                                <div class="w-8 h-8 md:w-10 md:h-10 bg-darkbg rounded-full border border-white/10 overflow-hidden shrink-0">
+                                    <img src="${logoA}" class="w-full h-full object-cover" alt="${partido.equipo_a_nombre}">
+                                </div>
+                            </div>
+                            
+                            <div class="bg-darkbg px-3 py-1 md:px-5 md:py-2 rounded-lg font-black tracking-widest text-white border border-white/10 flex items-center gap-2 shrink-0">
+                                <span class="text-brandpink">${partido.resultado_a}</span>
+                                <span class="text-slate-500">-</span>
+                                <span class="text-brandcyan">${partido.resultado_b}</span>
+                            </div>
+
+                            <div class="w-[40%] flex justify-start items-center gap-3">
+                                <div class="w-8 h-8 md:w-10 md:h-10 bg-darkbg rounded-full border border-white/10 overflow-hidden shrink-0">
+                                    <img src="${logoB}" class="w-full h-full object-cover" alt="${partido.equipo_b_nombre}">
+                                </div>
+                                <span class="font-bold text-white text-[10px] md:text-sm text-left line-clamp-1">${partido.equipo_b_nombre}</span>
+                            </div>
+                        </div>
+                    `;
+                    contenedor.insertAdjacentHTML('beforeend', tarjeta);
+                });
+
+            } catch (error) {
+                console.error('Error al cargar fixture:', error);
+                contenedor.innerHTML = '<div class="py-8 text-center text-brandpink text-sm uppercase">Error al cargar los partidos</div>';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             cargarPosiciones();
             cargarEquipos();
+            cargarFixture(1); // Carga la fecha 1 por defecto al iniciar
         });
     </script>
 </body>
