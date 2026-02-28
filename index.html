@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liga MVP - Temporada 22</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
                     colors: {
-                        darkbg: '#0B0F19',
-                        cardbg: '#111827',
-                        panelbg: '#1f2937',
+                        darkbg: '#050B14',
+                        cardbg: '#0D1424',
+                        panelbg: '#162032',
+                        brandcyan: '#00F0FF',
+                        brandpink: '#FF003C',
                     }
                 }
             }
@@ -20,98 +30,127 @@
     </script>
     <style>
         .text-gradient {
-            background: linear-gradient(to right, #22d3ee, #ec4899);
+            background: linear-gradient(to right, #00F0FF, #FF003C);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* Ocultar barra de scroll pero permitir desplazamiento */
+        /* Ocultar barra de scroll pero permitir desplazamiento táctil */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* Sistema de pestañas */
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .tab-content { display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .tab-content.active { display: block; opacity: 1; }
+        
+        /* Efecto de cristal para contenedores */
+        .glass-panel {
+            background: rgba(13, 20, 36, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
     </style>
 </head>
-<body class="bg-darkbg text-slate-200 font-sans min-h-screen antialiased relative">
+<body class="bg-darkbg text-slate-200 min-h-screen antialiased selection:bg-brandcyan selection:text-black relative overflow-x-hidden">
 
-    <nav class="sticky top-0 z-50 w-full bg-darkbg/80 backdrop-blur-md border-b border-slate-800 px-4 py-3 flex items-center gap-3 shadow-lg">
-        <div class="w-8 h-8 rounded-full overflow-hidden bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700">
-            <img src="logo.png" alt="Logo" class="w-full h-full object-contain" onerror="this.src='https://via.placeholder.com/50?text=MVP'">
+    <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brandcyan/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-brandpink/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
+
+    <nav class="sticky top-0 z-50 w-full glass-panel border-b border-white/5 px-4 py-3 flex items-center justify-between shadow-xl">
+        <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full overflow-hidden bg-panelbg flex items-center justify-center shrink-0 border border-white/10 shadow-[0_0_10px_rgba(0,240,255,0.2)]">
+                <img src="logo.png" alt="Logo" class="w-full h-full object-contain" onerror="this.src='https://via.placeholder.com/50?text=MVP'">
+            </div>
+            <span class="text-white font-black tracking-widest uppercase text-xs md:text-sm">
+                Liga MVP <span class="text-brandpink mx-1">•</span> T22
+            </span>
         </div>
-        <span class="text-white font-black tracking-widest uppercase text-sm md:text-base">
-            Liga MVP - Temporada 22
-        </span>
+        <button class="text-slate-400 hover:text-white md:hidden">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
     </nav>
 
-    <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-cyan-900/20 to-transparent pointer-events-none z-0"></div>
-
-    <header class="relative z-10 pt-8 pb-6 md:pt-12 md:pb-8 flex flex-col items-center justify-center px-4 text-center">
-        <div class="w-24 h-24 md:w-28 md:h-28 mb-4 relative">
-            <div class="absolute inset-0 bg-cyan-500 blur-[20px] opacity-20 rounded-full"></div>
-            <img src="logo.png" alt="Logo Liga MVP" class="w-full h-full object-contain relative z-10 drop-shadow-2xl" onerror="this.src='https://via.placeholder.com/150?text=LOGO'">
+    <header class="relative z-10 pt-12 pb-8 flex flex-col items-center justify-center px-4 text-center">
+        <div class="w-28 h-28 md:w-36 md:h-36 mb-6 relative group cursor-pointer">
+            <div class="absolute inset-0 bg-brandcyan blur-[30px] opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full"></div>
+            <img src="logo.png" alt="Logo Liga MVP" class="w-full h-full object-contain relative z-10 drop-shadow-2xl transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://via.placeholder.com/150?text=LOGO'">
         </div>
-        <h1 class="text-4xl md:text-6xl font-black text-gradient uppercase tracking-widest drop-shadow-sm">
+        <h1 class="text-5xl md:text-7xl font-black text-gradient uppercase tracking-[0.15em] drop-shadow-sm mb-3">
             Liga MVP
         </h1>
+        <p class="text-slate-400 text-sm md:text-base tracking-widest uppercase font-semibold">
+            Road to Glory
+        </p>
     </header>
 
-    <nav class="relative z-10 max-w-6xl mx-auto px-4 mb-8 md:mb-12">
-        <ul class="flex overflow-x-auto hide-scrollbar justify-start md:justify-center gap-2 md:gap-6 border-b border-slate-800 pb-px snap-x">
-            <li class="snap-start">
-                <button class="px-4 md:px-5 py-3 text-cyan-400 border-b-2 border-cyan-400 font-bold tracking-wider uppercase text-xs md:text-sm whitespace-nowrap shadow-[0_4px_15px_-3px_rgba(34,211,238,0.3)]">
-                    Superliga
-                </button>
-            </li>
-            <li class="snap-start">
-                <button class="px-4 md:px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-xs md:text-sm whitespace-nowrap">
-                    Primera División
-                </button>
-            </li>
-            <li class="snap-start">
-                <button class="px-4 md:px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-xs md:text-sm whitespace-nowrap">
-                    Segunda División
-                </button>
-            </li>
-        </ul>
+    <nav class="relative z-10 max-w-6xl mx-auto px-2 md:px-4 mb-8">
+        <div class="glass-panel rounded-2xl p-1.5 md:p-2">
+            <ul class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-2">
+                <li class="snap-center shrink-0">
+                    <button class="px-5 py-2.5 bg-brandcyan text-black rounded-xl font-bold tracking-wider uppercase text-xs md:text-sm shadow-[0_0_20px_rgba(0,240,255,0.4)] transition-all">
+                        Superliga
+                    </button>
+                </li>
+                <li class="snap-center shrink-0">
+                    <button class="px-5 py-2.5 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-semibold tracking-wider uppercase text-xs md:text-sm">
+                        Primera División
+                    </button>
+                </li>
+                <li class="snap-center shrink-0">
+                    <button class="px-5 py-2.5 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-semibold tracking-wider uppercase text-xs md:text-sm">
+                        Segunda División
+                    </button>
+                </li>
+                <li class="snap-center shrink-0">
+                    <button class="px-5 py-2.5 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-semibold tracking-wider uppercase text-xs md:text-sm">
+                        Tercera División
+                    </button>
+                </li>
+                <li class="snap-center shrink-0">
+                    <button class="px-5 py-2.5 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-semibold tracking-wider uppercase text-xs md:text-sm">
+                        Cuarta División
+                    </button>
+                </li>
+            </ul>
+        </div>
     </nav>
 
-    <main class="relative z-10 max-w-6xl mx-auto px-4 pb-16">
-        <div class="bg-cardbg/80 backdrop-blur-sm p-4 md:p-8 rounded-3xl shadow-2xl border border-slate-800 relative overflow-hidden">
+    <main class="relative z-10 max-w-6xl mx-auto px-4 pb-20">
+        <div class="glass-panel p-4 md:p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
             
-            <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-[50px]"></div>
-            <div class="absolute bottom-0 left-0 w-32 h-32 bg-pink-500/10 blur-[50px]"></div>
-
-            <div class="flex flex-wrap md:flex-nowrap bg-darkbg rounded-xl p-1 mb-6 md:mb-8 border border-slate-700 relative z-10">
-                <button onclick="changeTab('posiciones')" id="btn-posiciones" class="w-full md:flex-1 py-3 text-xs md:text-sm font-bold uppercase tracking-wider rounded-lg bg-panelbg text-white shadow transition-all">Posiciones</button>
-                <button onclick="changeTab('equipos')" id="btn-equipos" class="w-full md:flex-1 py-3 text-xs md:text-sm font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-white transition-all">Equipos</button>
-                <button onclick="changeTab('fixture')" id="btn-fixture" class="w-full md:flex-1 py-3 text-xs md:text-sm font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-white transition-all">Fixture</button>
+            <div class="flex bg-darkbg/50 rounded-xl p-1.5 mb-8 border border-white/5 relative z-10">
+                <button onclick="changeTab('posiciones')" id="btn-posiciones" class="flex-1 py-3 text-xs md:text-sm font-bold uppercase tracking-widest rounded-lg bg-panelbg text-white shadow-lg transition-all border border-white/5">Posiciones</button>
+                <button onclick="changeTab('equipos')" id="btn-equipos" class="flex-1 py-3 text-xs md:text-sm font-bold uppercase tracking-widest rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all">Equipos</button>
+                <button onclick="changeTab('fixture')" id="btn-fixture" class="flex-1 py-3 text-xs md:text-sm font-bold uppercase tracking-widest rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-all">Fixture</button>
             </div>
 
-            <div id="tab-posiciones" class="tab-content active overflow-x-auto relative z-10">
-                <table class="w-full text-left border-collapse min-w-[600px]">
-                    <thead>
-                        <tr class="text-slate-500 text-xs uppercase tracking-widest border-b border-slate-800">
-                            <th class="pb-4 px-4 font-bold">#</th>
-                            <th class="pb-4 px-4 font-bold">Equipo</th>
-                            <th class="pb-4 px-4 text-center font-bold">V</th>
-                            <th class="pb-4 px-4 text-center font-bold">D</th>
-                            <th class="pb-4 px-4 text-right font-bold text-cyan-400">Pts</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-sm" id="tabla-body">
-                        </tbody>
-                </table>
+            <div id="tab-posiciones" class="tab-content active relative z-10">
+                <div class="w-full overflow-x-auto hide-scrollbar pb-4">
+                    <table class="w-full text-left border-collapse min-w-[600px]">
+                        <thead>
+                            <tr class="text-slate-500 text-[10px] md:text-xs uppercase tracking-[0.2em] border-b border-white/10">
+                                <th class="pb-4 px-4 font-bold">Pos</th>
+                                <th class="pb-4 px-4 font-bold">Equipo</th>
+                                <th class="pb-4 px-4 text-center font-bold">V</th>
+                                <th class="pb-4 px-4 text-center font-bold">D</th>
+                                <th class="pb-4 px-4 text-right font-bold text-brandcyan">Pts</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm md:text-base" id="tabla-body">
+                            </tbody>
+                    </table>
+                </div>
             </div>
 
             <div id="tab-equipos" class="tab-content relative z-10">
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
                     </div>
             </div>
 
             <div id="tab-fixture" class="tab-content relative z-10">
-                <div class="text-center py-8 text-slate-500">
-                    <p>El fixture se conectará en la próxima fase.</p>
+                <div class="flex flex-col items-center justify-center py-16 text-slate-500">
+                    <svg class="w-16 h-16 mb-4 opacity-50 text-brandpink" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <p class="font-bold tracking-widest uppercase text-sm">Próximamente</p>
+                    <p class="text-xs mt-2">El fixture de la T22 se está generando.</p>
                 </div>
             </div>
 
@@ -122,13 +161,17 @@
         function changeTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('[id^="btn-"]').forEach(btn => {
-                btn.classList.remove('bg-panelbg', 'text-white', 'shadow');
+                btn.classList.remove('bg-panelbg', 'text-white', 'shadow-lg', 'border', 'border-white/5');
                 btn.classList.add('text-slate-400');
             });
-            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            setTimeout(() => {
+                document.getElementById('tab-' + tabName).classList.add('active');
+            }, 50); // Pequeño delay para la transición de opacidad
+
             const activeBtn = document.getElementById('btn-' + tabName);
             activeBtn.classList.remove('text-slate-400');
-            activeBtn.classList.add('bg-panelbg', 'text-white', 'shadow');
+            activeBtn.classList.add('bg-panelbg', 'text-white', 'shadow-lg', 'border', 'border-white/5');
         }
     </script>
 
@@ -138,7 +181,7 @@
         
         const client = new Client()
             .setEndpoint('https://cloud.appwrite.io/v1') 
-            .setProject('684a25050005e78945d0'); // ¡ATENCIÓN! FALTA ESTE DATO
+            .setProject('684a25050005e78945d0'); // ID actualizado y correcto
 
         const databases = new Databases(client);
         const storage = new Storage(client); 
@@ -149,10 +192,19 @@
         const EQUIPOS_COLLECTION_ID = '69a2329d0030c5c309a8';
         const BUCKET_ID = '69a236b00003fa458197'; 
 
-        // Cargar Posiciones
+        // Spinner SVG para UI profesional
+        const loaderHTML = `
+            <tr><td colspan="5" class="py-12 text-center">
+                <svg class="animate-spin h-8 w-8 text-brandcyan mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span class="text-slate-400 text-sm tracking-widest uppercase">Sincronizando datos...</span>
+            </td></tr>`;
+
         async function cargarPosiciones() {
             const tbody = document.getElementById('tabla-body');
-            tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-slate-500">Cargando posiciones...</td></tr>';
+            tbody.innerHTML = loaderHTML;
 
             try {
                 const response = await databases.listDocuments(
@@ -163,38 +215,42 @@
 
                 tbody.innerHTML = '';
                 if(response.documents.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-slate-500">No hay equipos registrados aún.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="5" class="py-12 text-center text-slate-500 font-semibold tracking-wider uppercase text-sm">Sin registros actuales</td></tr>';
                     return;
                 }
 
                 response.documents.forEach((equipo, index) => {
+                    // Lógica para resaltar el TOP 1
+                    const isTop1 = index === 0;
+                    const indexStyle = isTop1 ? 'text-brandcyan text-lg drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]' : 'text-slate-500';
+                    const rowHover = isTop1 ? 'hover:bg-brandcyan/5' : 'hover:bg-white/5';
+
                     const fila = `
-                        <tr class="border-b border-slate-800/50 hover:bg-slate-800/50 transition-colors group">
-                            <td class="py-4 px-4 font-bold text-slate-400">${index + 1}</td>
-                            <td class="py-4 px-4 font-bold text-white flex items-center gap-3 md:gap-4">
-                                <div class="w-8 h-8 md:w-10 md:h-10 bg-panelbg rounded-xl flex items-center justify-center text-xs border border-slate-700 shadow-lg uppercase" style="border-color: ${equipo.color_hex || '#334155'}">
-                                    ${equipo.abreviatura || 'XX'}
+                        <tr class="border-b border-white/5 ${rowHover} transition-colors duration-300 group">
+                            <td class="py-5 px-4 font-black ${indexStyle} w-12">${index + 1}</td>
+                            <td class="py-5 px-4 font-bold text-white flex items-center gap-4">
+                                <div class="w-10 h-10 bg-darkbg rounded-xl flex items-center justify-center text-xs border border-white/10 shadow-lg uppercase overflow-hidden relative">
+                                    <div class="absolute inset-0 opacity-20" style="background-color: ${equipo.color_hex || '#00F0FF'}"></div>
+                                    <span class="relative z-10 font-black tracking-widest text-slate-200">${equipo.abreviatura || 'XX'}</span>
                                 </div> 
-                                <span class="whitespace-nowrap">${equipo.nombre_equipo}</span>
+                                <span class="whitespace-nowrap group-hover:text-brandcyan transition-colors">${equipo.nombre_equipo}</span>
                             </td>
-                            <td class="py-4 px-4 text-center text-emerald-400 font-bold">${equipo.victorias || 0}</td>
-                            <td class="py-4 px-4 text-center text-slate-400">${equipo.derrotas || 0}</td>
-                            <td class="py-4 px-4 text-right font-black text-cyan-400 text-base md:text-lg">${equipo.puntos || 0}</td>
+                            <td class="py-5 px-4 text-center text-emerald-400 font-black">${equipo.victorias || 0}</td>
+                            <td class="py-5 px-4 text-center text-slate-500 font-bold">${equipo.derrotas || 0}</td>
+                            <td class="py-5 px-4 text-right font-black text-brandcyan text-xl drop-shadow-[0_0_10px_rgba(0,240,255,0.3)]">${equipo.puntos || 0}</td>
                         </tr>
                     `;
                     tbody.insertAdjacentHTML('beforeend', fila);
                 });
             } catch (error) {
                 console.error('Error al cargar posiciones:', error);
-                tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-red-400">Error conectando con la base de datos.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" class="py-12 text-center text-brandpink text-sm tracking-widest uppercase">Error de conexión</td></tr>';
             }
         }
 
-        // Cargar Equipos (Logos)
         async function cargarEquipos() {
             const contenedor = document.querySelector('#tab-equipos .grid');
-            contenedor.innerHTML = '<div class="col-span-full py-8 text-center text-slate-500">Cargando equipos...</div>';
-
+            
             try {
                 const response = await databases.listDocuments(
                     DATABASE_ID,
@@ -203,23 +259,23 @@
 
                 contenedor.innerHTML = '';
                 if(response.documents.length === 0) {
-                    contenedor.innerHTML = '<div class="col-span-full py-8 text-center text-slate-500">No hay logos para mostrar.</div>';
+                    contenedor.innerHTML = '<div class="col-span-full py-12 text-center text-slate-500 text-sm tracking-widest uppercase">Sin logos disponibles</div>';
                     return;
                 }
 
                 response.documents.forEach(equipo => {
-                    let logoUrl = 'https://via.placeholder.com/150?text=LOGO'; 
+                    let logoUrl = 'https://via.placeholder.com/150/0D1424/FFFFFF?text=MVP'; 
                     
                     if (equipo.logo_id) {
                         logoUrl = storage.getFilePreview(BUCKET_ID, equipo.logo_id).href;
                     }
 
                     const tarjeta = `
-                        <div class="bg-panelbg border border-slate-700/50 rounded-xl p-4 flex flex-col items-center justify-center gap-3 hover:border-cyan-500/80 hover:bg-slate-800 transition-all cursor-pointer group shadow-lg">
-                            <div class="w-16 h-16 md:w-20 md:h-20 bg-darkbg rounded-full flex items-center justify-center border border-slate-600 group-hover:scale-105 transition-transform overflow-hidden shadow-inner">
-                                <img src="${logoUrl}" alt="Logo" class="w-full h-full object-cover">
+                        <div class="glass-panel rounded-2xl p-5 flex flex-col items-center justify-center gap-4 hover:border-brandcyan/50 hover:shadow-[0_0_30px_rgba(0,240,255,0.15)] transition-all duration-300 cursor-pointer group">
+                            <div class="w-20 h-20 md:w-24 md:h-24 bg-darkbg rounded-full flex items-center justify-center border border-white/10 group-hover:scale-110 group-hover:border-brandcyan/50 transition-all duration-500 overflow-hidden relative shadow-inner">
+                                <img src="${logoUrl}" alt="Logo" class="w-full h-full object-cover relative z-10">
                             </div>
-                            <span class="text-xs md:text-sm font-bold text-center text-white line-clamp-1">${equipo.nombre || equipo.nombre_equipo}</span>
+                            <span class="text-xs md:text-sm font-bold text-center text-white line-clamp-1 tracking-wider uppercase">${equipo.nombre || equipo.nombre_equipo}</span>
                         </div>
                     `;
                     contenedor.insertAdjacentHTML('beforeend', tarjeta);
@@ -227,7 +283,6 @@
 
             } catch (error) {
                 console.error('Error al cargar equipos:', error);
-                contenedor.innerHTML = '<div class="col-span-full py-8 text-center text-red-400">Error al cargar las imágenes de los equipos.</div>';
             }
         }
 
