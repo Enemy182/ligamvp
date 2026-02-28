@@ -3,161 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liga MVP</title>
+    <title>Liga MVP - Temporada 22</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        darkbg: '#0B0F19', /* Fondo súper oscuro, casi azul marino */
-                        cardbg: '#111827', /* Gris oscuro para las tarjetas */
+                        darkbg: '#0B0F19',
+                        cardbg: '#111827',
+                        panelbg: '#1f2937',
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Efecto de texto con gradiente para el título */
         .text-gradient {
             background: linear-gradient(to right, #22d3ee, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        /* Ocultar barra de scroll pero permitir desplazamiento */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Sistema de pestañas */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
-<body class="bg-darkbg text-slate-200 font-sans min-h-screen antialiased">
+<body class="bg-darkbg text-slate-200 font-sans min-h-screen antialiased relative">
+
+    <nav class="sticky top-0 z-50 w-full bg-darkbg/80 backdrop-blur-md border-b border-slate-800 px-4 py-3 flex items-center gap-3 shadow-lg">
+        <div class="w-8 h-8 rounded-full overflow-hidden bg-slate-800 flex items-center justify-center shrink-0 border border-slate-700">
+            <img src="logo.png" alt="Logo" class="w-full h-full object-contain" onerror="this.src='https://via.placeholder.com/50?text=MVP'">
+        </div>
+        <span class="text-white font-black tracking-widest uppercase text-sm md:text-base">
+            Liga MVP - Temporada 22
+        </span>
+    </nav>
 
     <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-cyan-900/20 to-transparent pointer-events-none z-0"></div>
 
-    <header class="relative z-10 pt-12 pb-8 flex flex-col items-center justify-center">
-        <div class="w-28 h-28 mb-4 relative">
+    <header class="relative z-10 pt-8 pb-6 md:pt-12 md:pb-8 flex flex-col items-center justify-center px-4 text-center">
+        <div class="w-24 h-24 md:w-28 md:h-28 mb-4 relative">
             <div class="absolute inset-0 bg-cyan-500 blur-[20px] opacity-20 rounded-full"></div>
-            <img src="logo.png" alt="Logo Liga MVP" class="w-full h-full object-contain relative z-10 drop-shadow-2xl">
+            <img src="logo.png" alt="Logo Liga MVP" class="w-full h-full object-contain relative z-10 drop-shadow-2xl" onerror="this.src='https://via.placeholder.com/150?text=LOGO'">
         </div>
-        <h1 class="text-5xl md:text-6xl font-black text-gradient uppercase tracking-widest drop-shadow-sm">
+        <h1 class="text-4xl md:text-6xl font-black text-gradient uppercase tracking-widest drop-shadow-sm">
             Liga MVP
         </h1>
     </header>
 
-    <nav class="relative z-10 max-w-6xl mx-auto px-4 mb-12">
-        <ul class="flex overflow-x-auto hide-scrollbar justify-start md:justify-center gap-2 md:gap-6 border-b border-slate-800 pb-px">
-            <li>
-                <button class="px-5 py-3 text-cyan-400 border-b-2 border-cyan-400 font-bold tracking-wider uppercase text-sm md:text-base whitespace-nowrap shadow-[0_4px_15px_-3px_rgba(34,211,238,0.3)]">
+    <nav class="relative z-10 max-w-6xl mx-auto px-4 mb-8 md:mb-12">
+        <ul class="flex overflow-x-auto hide-scrollbar justify-start md:justify-center gap-2 md:gap-6 border-b border-slate-800 pb-px snap-x">
+            <li class="snap-start">
+                <button class="px-4 md:px-5 py-3 text-cyan-400 border-b-2 border-cyan-400 font-bold tracking-wider uppercase text-xs md:text-sm whitespace-nowrap shadow-[0_4px_15px_-3px_rgba(34,211,238,0.3)]">
                     Superliga
                 </button>
             </li>
-            <li>
-                <button class="px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-sm md:text-base whitespace-nowrap">
+            <li class="snap-start">
+                <button class="px-4 md:px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-xs md:text-sm whitespace-nowrap">
                     Primera División
                 </button>
             </li>
-            <li>
-                <button class="px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-sm md:text-base whitespace-nowrap">
+            <li class="snap-start">
+                <button class="px-4 md:px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-xs md:text-sm whitespace-nowrap">
                     Segunda División
-                </button>
-            </li>
-            <li>
-                <button class="px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-sm md:text-base whitespace-nowrap">
-                    Tercera División
-                </button>
-            </li>
-            <li>
-                <button class="px-5 py-3 text-slate-500 hover:text-pink-400 hover:border-b-2 hover:border-pink-400 transition-all font-semibold tracking-wider uppercase text-sm md:text-base whitespace-nowrap">
-                    Cuarta División
                 </button>
             </li>
         </ul>
     </nav>
 
     <main class="relative z-10 max-w-6xl mx-auto px-4 pb-16">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="bg-cardbg/80 backdrop-blur-sm p-4 md:p-8 rounded-3xl shadow-2xl border border-slate-800 relative overflow-hidden">
+            
+            <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-[50px]"></div>
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-pink-500/10 blur-[50px]"></div>
 
-            <section class="lg:col-span-7 bg-cardbg/80 backdrop-blur-sm p-6 md:p-8 rounded-3xl shadow-2xl border border-slate-800 relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 blur-[50px]"></div>
+            <div class="flex flex-wrap md:flex-nowrap bg-darkbg rounded-xl p-1 mb-6 md:mb-8 border border-slate-700 relative z-10">
+                <button onclick="changeTab('posiciones')" id="btn-posiciones" class="w-full md:flex-1 py-3 text-xs md:text-sm font-bold uppercase tracking-wider rounded-lg bg-panelbg text-white shadow transition-all">Posiciones</button>
+                <button onclick="changeTab('equipos')" id="btn-equipos" class="w-full md:flex-1 py-3 text-xs md:text-sm font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-white transition-all">Equipos</button>
+                <button onclick="changeTab('fixture')" id="btn-fixture" class="w-full md:flex-1 py-3 text-xs md:text-sm font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-white transition-all">Fixture</button>
+            </div>
 
-                <h3 class="text-2xl font-black mb-6 text-white uppercase tracking-wide flex items-center gap-3">
-                    <span class="text-cyan-400">///</span> Tabla de Posiciones
-                </h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="text-slate-500 text-xs uppercase tracking-widest border-b border-slate-800">
-                                <th class="pb-4 font-bold">Equipo</th>
-                                <th class="pb-4 text-center font-bold">V</th>
-                                <th class="pb-4 text-center font-bold">D</th>
-                                <th class="pb-4 text-right font-bold text-cyan-400">Pts</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-sm">
-                            <tr class="border-b border-slate-800/50 hover:bg-slate-800/50 transition-colors group">
-                                <td class="py-5 font-bold text-white flex items-center gap-4">
-                                    <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center text-xs shadow-lg shadow-cyan-500/30">RL</div>
-                                    Reyes Latín
-                                </td>
-                                <td class="py-5 text-center text-slate-300">5</td>
-                                <td class="py-5 text-center text-slate-300">0</td>
-                                <td class="py-5 text-right font-black text-cyan-400 text-lg">15</td>
-                            </tr>
-                            <tr class="border-b border-slate-800/50 hover:bg-slate-800/50 transition-colors">
-                                <td class="py-5 font-bold text-slate-200 flex items-center gap-4">
-                                    <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-xs border border-slate-700">NG</div>
-                                    Neon Gaming
-                                </td>
-                                <td class="py-5 text-center text-slate-300">3</td>
-                                <td class="py-5 text-center text-slate-300">2</td>
-                                <td class="py-5 text-right font-bold text-slate-100 text-lg">9</td>
-                            </tr>
-                            <tr class="hover:bg-slate-800/50 transition-colors">
-                                <td class="py-5 font-bold text-slate-200 flex items-center gap-4">
-                                    <div class="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-xs border border-slate-700">VX</div>
-                                    Vortex
-                                </td>
-                                <td class="py-5 text-center text-slate-300">1</td>
-                                <td class="py-5 text-center text-slate-300">4</td>
-                                <td class="py-5 text-right font-bold text-slate-100 text-lg">3</td>
-                            </tr>
+            <div id="tab-posiciones" class="tab-content active overflow-x-auto relative z-10">
+                <table class="w-full text-left border-collapse min-w-[600px]">
+                    <thead>
+                        <tr class="text-slate-500 text-xs uppercase tracking-widest border-b border-slate-800">
+                            <th class="pb-4 px-4 font-bold">#</th>
+                            <th class="pb-4 px-4 font-bold">Equipo</th>
+                            <th class="pb-4 px-4 text-center font-bold">V</th>
+                            <th class="pb-4 px-4 text-center font-bold">D</th>
+                            <th class="pb-4 px-4 text-right font-bold text-cyan-400">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm" id="tabla-body">
                         </tbody>
-                    </table>
-                </div>
-            </section>
+                </table>
+            </div>
 
-            <section class="lg:col-span-5 bg-cardbg/80 backdrop-blur-sm p-6 md:p-8 rounded-3xl shadow-2xl border border-slate-800 relative overflow-hidden">
-                <div class="absolute bottom-0 left-0 w-32 h-32 bg-pink-500/10 blur-[50px]"></div>
-
-                <h3 class="text-2xl font-black mb-6 text-white uppercase tracking-wide flex items-center gap-3">
-                    <span class="text-pink-500">///</span> Próxima Fecha
-                </h3>
-                
-                <div class="space-y-5">
-                    <div class="bg-darkbg p-5 rounded-2xl border border-slate-800 flex flex-col gap-3 hover:border-pink-500/50 transition-all group cursor-default">
-                        <div class="flex justify-between items-center text-xs text-slate-500 font-bold uppercase tracking-wider">
-                            <span>Jornada 6</span>
-                            <span class="text-pink-400 bg-pink-500/10 px-2 py-1 rounded">Hoy 20:00</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-white text-lg">Reyes Latín</span>
-                            <span class="text-slate-600 font-black italic">VS</span>
-                            <span class="font-bold text-slate-400 text-lg">Vortex</span>
-                        </div>
+            <div id="tab-equipos" class="tab-content relative z-10">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     </div>
+            </div>
 
-                    <div class="bg-darkbg p-5 rounded-2xl border border-slate-800 flex flex-col gap-3 hover:border-pink-500/50 transition-all cursor-default">
-                        <div class="flex justify-between items-center text-xs text-slate-500 font-bold uppercase tracking-wider">
-                            <span>Jornada 6</span>
-                            <span>Mañana 22:30</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-slate-400 text-lg">Neon Gaming</span>
-                            <span class="text-slate-600 font-black italic">VS</span>
-                            <span class="font-bold text-slate-400 text-lg">Team Alpha</span>
-                        </div>
-                    </div>
+            <div id="tab-fixture" class="tab-content relative z-10">
+                <div class="text-center py-8 text-slate-500">
+                    <p>El fixture se conectará en la próxima fase.</p>
                 </div>
-            </section>
+            </div>
 
         </div>
     </main>
+
+    <script>
+        function changeTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('[id^="btn-"]').forEach(btn => {
+                btn.classList.remove('bg-panelbg', 'text-white', 'shadow');
+                btn.classList.add('text-slate-400');
+            });
+            document.getElementById('tab-' + tabName).classList.add('active');
+            const activeBtn = document.getElementById('btn-' + tabName);
+            activeBtn.classList.remove('text-slate-400');
+            activeBtn.classList.add('bg-panelbg', 'text-white', 'shadow');
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@14.0.1"></script>
+    <script>
+        const { Client, Databases, Storage, Query } = Appwrite;
+        
+        const client = new Client()
+            .setEndpoint('https://cloud.appwrite.io/v1') 
+            .setProject('TU_PROJECT_ID'); // ¡ATENCIÓN! FALTA ESTE DATO
+
+        const databases = new Databases(client);
+        const storage = new Storage(client); 
+
+        // IDs Inyectados
+        const DATABASE_ID = '685b5b2c002eb8e5919e'; 
+        const POSICIONES_COLLECTION_ID = '69a2367f003b36b1cbec';
+        const EQUIPOS_COLLECTION_ID = '69a2329d0030c5c309a8';
+        const BUCKET_ID = '69a236b00003fa458197'; 
+
+        // Cargar Posiciones
+        async function cargarPosiciones() {
+            const tbody = document.getElementById('tabla-body');
+            tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-slate-500">Cargando posiciones...</td></tr>';
+
+            try {
+                const response = await databases.listDocuments(
+                    DATABASE_ID,
+                    POSICIONES_COLLECTION_ID,
+                    [Query.orderDesc('puntos')]
+                );
+
+                tbody.innerHTML = '';
+                if(response.documents.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-slate-500">No hay equipos registrados aún.</td></tr>';
+                    return;
+                }
+
+                response.documents.forEach((equipo, index) => {
+                    const fila = `
+                        <tr class="border-b border-slate-800/50 hover:bg-slate-800/50 transition-colors group">
+                            <td class="py-4 px-4 font-bold text-slate-400">${index + 1}</td>
+                            <td class="py-4 px-4 font-bold text-white flex items-center gap-3 md:gap-4">
+                                <div class="w-8 h-8 md:w-10 md:h-10 bg-panelbg rounded-xl flex items-center justify-center text-xs border border-slate-700 shadow-lg uppercase" style="border-color: ${equipo.color_hex || '#334155'}">
+                                    ${equipo.abreviatura || 'XX'}
+                                </div> 
+                                <span class="whitespace-nowrap">${equipo.nombre_equipo}</span>
+                            </td>
+                            <td class="py-4 px-4 text-center text-emerald-400 font-bold">${equipo.victorias || 0}</td>
+                            <td class="py-4 px-4 text-center text-slate-400">${equipo.derrotas || 0}</td>
+                            <td class="py-4 px-4 text-right font-black text-cyan-400 text-base md:text-lg">${equipo.puntos || 0}</td>
+                        </tr>
+                    `;
+                    tbody.insertAdjacentHTML('beforeend', fila);
+                });
+            } catch (error) {
+                console.error('Error al cargar posiciones:', error);
+                tbody.innerHTML = '<tr><td colspan="5" class="py-8 text-center text-red-400">Error conectando con la base de datos.</td></tr>';
+            }
+        }
+
+        // Cargar Equipos (Logos)
+        async function cargarEquipos() {
+            const contenedor = document.querySelector('#tab-equipos .grid');
+            contenedor.innerHTML = '<div class="col-span-full py-8 text-center text-slate-500">Cargando equipos...</div>';
+
+            try {
+                const response = await databases.listDocuments(
+                    DATABASE_ID,
+                    EQUIPOS_COLLECTION_ID
+                );
+
+                contenedor.innerHTML = '';
+                if(response.documents.length === 0) {
+                    contenedor.innerHTML = '<div class="col-span-full py-8 text-center text-slate-500">No hay logos para mostrar.</div>';
+                    return;
+                }
+
+                response.documents.forEach(equipo => {
+                    let logoUrl = 'https://via.placeholder.com/150?text=LOGO'; 
+                    
+                    if (equipo.logo_id) {
+                        logoUrl = storage.getFilePreview(BUCKET_ID, equipo.logo_id).href;
+                    }
+
+                    const tarjeta = `
+                        <div class="bg-panelbg border border-slate-700/50 rounded-xl p-4 flex flex-col items-center justify-center gap-3 hover:border-cyan-500/80 hover:bg-slate-800 transition-all cursor-pointer group shadow-lg">
+                            <div class="w-16 h-16 md:w-20 md:h-20 bg-darkbg rounded-full flex items-center justify-center border border-slate-600 group-hover:scale-105 transition-transform overflow-hidden shadow-inner">
+                                <img src="${logoUrl}" alt="Logo" class="w-full h-full object-cover">
+                            </div>
+                            <span class="text-xs md:text-sm font-bold text-center text-white line-clamp-1">${equipo.nombre || equipo.nombre_equipo}</span>
+                        </div>
+                    `;
+                    contenedor.insertAdjacentHTML('beforeend', tarjeta);
+                });
+
+            } catch (error) {
+                console.error('Error al cargar equipos:', error);
+                contenedor.innerHTML = '<div class="col-span-full py-8 text-center text-red-400">Error al cargar las imágenes de los equipos.</div>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarPosiciones();
+            cargarEquipos();
+        });
+    </script>
 </body>
 </html>
